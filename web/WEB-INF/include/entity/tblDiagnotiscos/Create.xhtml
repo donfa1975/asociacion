@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblDiagnotiscosCreateDlg" widgetVar="TblDiagnotiscosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTblDiagnotiscosTitle}" closeOnEscape="true">
+
+            <h:form id="TblDiagnotiscosCreateForm">
+
+                <h:panelGroup id="display" rendered="#{tblDiagnotiscosController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+						<p:outputLabel value="#{myBundle.CreateTblDiagnotiscosLabel_fechaDiagnostico}" for="fechaDiagnostico" />
+                        <p:calendar id="fechaDiagnostico" pattern="dd/MM/yyyy" value="#{tblDiagnotiscosController.selected.fechaDiagnostico}" title="#{myBundle.CreateTblDiagnotiscosTitle_fechaDiagnostico}"  showOn="button"/>
+
+						<p:outputLabel value="#{myBundle.CreateTblDiagnotiscosLabel_idmedico}" for="idmedico" />
+                        <p:inputText id="idmedico" value="#{tblDiagnotiscosController.selected.idmedico}" title="#{myBundle.CreateTblDiagnotiscosTitle_idmedico}"/>
+
+						<p:outputLabel value="#{myBundle.CreateTblDiagnotiscosLabel_idPaciente}" for="idPaciente" />
+                        <p:selectOneMenu id="idPaciente" value="#{tblDiagnotiscosController.selected.idPaciente}"  converter="tblPacientesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblPacientesController.items}"
+                                           var="idPacienteItem"
+                                           itemValue="#{idPacienteItem}"
+                                           itemLabel="#{idPacienteItem.idPaciente.toString()}"
+										   />
+
+                        </p:selectOneMenu>
+
+						<p:outputLabel value="#{myBundle.CreateTblDiagnotiscosLabel_idTipoDiagnostico}" for="idTipoDiagnostico" />
+                        <p:selectOneMenu id="idTipoDiagnostico" value="#{tblDiagnotiscosController.selected.idTipoDiagnostico}"  converter="tblTipoDiagnosticoConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblTipoDiagnosticoController.items}"
+                                           var="idTipoDiagnosticoItem"
+                                           itemValue="#{idTipoDiagnosticoItem}"
+                                           itemLabel="#{idTipoDiagnosticoItem.idTipoDiagnostico.toString()}"
+										   />
+
+                        </p:selectOneMenu>
+
+						<p:outputLabel value="#{myBundle.CreateTblDiagnotiscosLabel_idusuario}" for="idusuario" />
+                        <p:selectOneMenu id="idusuario" value="#{tblDiagnotiscosController.selected.idusuario}"  converter="tblUsuariosConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblUsuariosController.items}"
+                                           var="idusuarioItem"
+                                           itemValue="#{idusuarioItem}"
+                                           itemLabel="#{idusuarioItem.idUsuario.toString()}"
+										   />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tblDiagnotiscosController.saveNew}" value="#{myBundle.Save}" update="display,:TblDiagnotiscosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TblDiagnotiscosCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TblDiagnotiscosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

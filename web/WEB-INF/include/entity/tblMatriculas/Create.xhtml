@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblMatriculasCreateDlg" widgetVar="TblMatriculasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTblMatriculasTitle}" closeOnEscape="true">
+
+            <h:form id="TblMatriculasCreateForm">
+
+                <h:panelGroup id="display" rendered="#{tblMatriculasController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+						<p:outputLabel value="#{myBundle.CreateTblMatriculasLabel_anio}" for="anio" />
+                        <p:inputText id="anio" value="#{tblMatriculasController.selected.anio}" title="#{myBundle.CreateTblMatriculasTitle_anio}" required="true" requiredMessage="#{myBundle.CreateTblMatriculasRequiredMessage_anio}"/>
+
+						<p:outputLabel value="#{myBundle.CreateTblMatriculasLabel_fechaMat}" for="fechaMat" />
+                        <p:calendar id="fechaMat" pattern="dd/MM/yyyy" value="#{tblMatriculasController.selected.fechaMat}" title="#{myBundle.CreateTblMatriculasTitle_fechaMat}" required="true" requiredMessage="#{myBundle.CreateTblMatriculasRequiredMessage_fechaMat}" showOn="button"/>
+
+						<p:outputLabel value="#{myBundle.CreateTblMatriculasLabel_numero}" for="numero" />
+                        <p:inputText id="numero" value="#{tblMatriculasController.selected.numero}" title="#{myBundle.CreateTblMatriculasTitle_numero}"/>
+
+						<p:outputLabel value="#{myBundle.CreateTblMatriculasLabel_numMat}" for="numMat" />
+                        <p:inputText id="numMat" value="#{tblMatriculasController.selected.numMat}" title="#{myBundle.CreateTblMatriculasTitle_numMat}" size="20" maxlength="20"/>
+
+						<p:outputLabel value="#{myBundle.CreateTblMatriculasLabel_idPaciente}" for="idPaciente" />
+                        <p:selectOneMenu id="idPaciente" value="#{tblMatriculasController.selected.idPaciente}" required="true" requiredMessage="#{myBundle.CreateTblMatriculasRequiredMessage_idPaciente}" converter="tblPacientesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblPacientesController.items}"
+                                           var="idPacienteItem"
+                                           itemValue="#{idPacienteItem}"
+                                           itemLabel="#{idPacienteItem.idPaciente.toString()}"
+										   />
+
+                        </p:selectOneMenu>
+
+						<p:outputLabel value="#{myBundle.CreateTblMatriculasLabel_idusuario}" for="idusuario" />
+                        <p:selectOneMenu id="idusuario" value="#{tblMatriculasController.selected.idusuario}" required="true" requiredMessage="#{myBundle.CreateTblMatriculasRequiredMessage_idusuario}" converter="tblUsuariosConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblUsuariosController.items}"
+                                           var="idusuarioItem"
+                                           itemValue="#{idusuarioItem}"
+                                           itemLabel="#{idusuarioItem.idUsuario.toString()}"
+										   />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tblMatriculasController.saveNew}" value="#{myBundle.Save}" update="display,:TblMatriculasListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TblMatriculasCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TblMatriculasCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

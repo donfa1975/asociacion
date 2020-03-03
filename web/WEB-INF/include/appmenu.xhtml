@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <ui:remove>
+            <!--  <p:menubar>
+                <p:menuitem value="#{myBundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{myBundle.Maintenance}">
+                    <p:menuitem value="#{myBundle.TblAccionesHeading}..." outcome="/app/tblAcciones/index" />
+                    <p:menuitem value="#{myBundle.TblAreasHeading}..." outcome="/app/tblAreas/index" />
+                    <p:menuitem value="#{myBundle.TblCantonesHeading}..." outcome="/app/tblCantones/index" />
+                    <p:menuitem value="#{myBundle.TblCitasHeading}..." outcome="/app/tblCitas/index" />
+                    <p:menuitem value="#{myBundle.TblDiagnotiscosHeading}..." outcome="/app/tblDiagnotiscos/index" />
+                    <p:menuitem value="#{myBundle.TblMatriculasHeading}..." outcome="/app/tblMatriculas/index" />
+                    <p:menuitem value="#{myBundle.TblOrigenesHeading}..." outcome="/app/tblOrigenes/index" />
+                    <p:menuitem value="#{myBundle.TblPacientesHeading}..." outcome="/app/tblPacientes/index" />
+                    <p:menuitem value="#{myBundle.TblTipoDiagnosticoHeading}..." outcome="/app/tblTipoDiagnostico/index" />
+                    <p:menuitem value="#{myBundle.TblUsuariosHeading}..." outcome="/app/tblUsuarios/index" />
+                    <p:menuitem value="#{myBundle.TblZonasHeading}..." outcome="/app/tblZonas/index" />
+                </p:submenu>
+            </p:menubar>-->
+            </ui:remove>
+		  <p:dock position="top">
+			  
+				<p:menuitem value="Inicio" icon="/resources/images/home.png" url="../../index.xhtml"/> 
+				
+				 <p:menuitem value="Pacientes" icon="/resources/images/pacientes.png" outcome="/app/tblPacientes/index" />
+				 
+                                 <p:menuitem value="Parametros" icon="/resources/images/parametros.png" url="#"/>
+				 
+                                 <p:menuitem value="Reportes" icon="/resources/images/Reports.png" url="#"/>
+			</p:dock>
+        </h:form>
+    </ui:composition>
+
+</html>

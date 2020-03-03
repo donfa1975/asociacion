@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblUsuariosViewDlg" widgetVar="TblUsuariosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTblUsuariosTitle}" closeOnEscape="true">
+
+            <h:form id="TblUsuariosViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tblUsuariosController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTblUsuariosLabel_idUsuario}"/>
+                        <h:outputText value="#{tblUsuariosController.selected.idUsuario}" title="#{myBundle.ViewTblUsuariosTitle_idUsuario}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblUsuariosLabel_usuario}"/>
+                        <h:outputText value="#{tblUsuariosController.selected.usuario}" title="#{myBundle.ViewTblUsuariosTitle_usuario}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblUsuariosLabel_nombre}"/>
+                        <h:outputText value="#{tblUsuariosController.selected.nombre}" title="#{myBundle.ViewTblUsuariosTitle_nombre}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblUsuariosLabel_clave}"/>
+                        <h:outputText value="#{tblUsuariosController.selected.clave}" title="#{myBundle.ViewTblUsuariosTitle_clave}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblUsuariosLabel_cargo}"/>
+                        <h:outputText value="#{tblUsuariosController.selected.cargo}" title="#{myBundle.ViewTblUsuariosTitle_cargo}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblUsuariosLabel_correo}"/>
+                        <h:outputText value="#{tblUsuariosController.selected.correo}" title="#{myBundle.ViewTblUsuariosTitle_correo}"/>
+                    </p:panelGrid>
+					<p:commandButton value="#{myBundle.Close}" onclick="PF('TblUsuariosViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

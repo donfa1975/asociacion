@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="TblPacientesListForm">
+        <p:panel>
+            <p:toolbar>
+                <f:facet name="left">
+                    <h:outputText value="Buscar paciente (apellido o nombre):" />
+                    <h:inputText value="#{beanPacientes.ctPacientes.filtro}"/>
+                    <span class="ui-separator"/>
+                    <p:commandButton value="Buscar" actionListener="#{beanPacientes.ctPacientes.filtrar()}"
+                                     icon="ui-icon-search" ajax="false" update="milista"/>
+                    <span class="ui-separator"/>                    
+                    <p:commandButton value="Ver todo" actionListener="#{beanPacientes.ctPacientes.verTodo()}" ajax="false"
+                                     icon="ui-icon-clipboard" update="milista"/>
+                    <span class="ui-separator"/>
+
+                    <p:commandButton value="Nuevo paciente" icon="ui-icon-contact" id="createButton" 
+                                     actionListener="#{beanPacientes.ctPacientes.prepareCreate()}" update=":TblPacientesCreateForm" oncomplete="PF('TblPacientesCreateDialog').show()"
+                                     />
+
+                    <span class="ui-separator"/>
+                    <p:commandButton value="Excel" ajax="false">
+                        <p:dataExporter type="xlsxstream" target="datalist" fileName="pacientes" />
+                    </p:commandButton>
+
+                </f:facet>
+            </p:toolbar>
+
+        </p:panel>
+        <p:panel header="#{myBundle.ListTblPacientesTitle}">
+
+            <p:dataTable id="datalist" widgetVar="milista"
+                         value="#{beanPacientes.ctPacientes.filtrado}"
+                         lazy="false"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         rowsPerPageTemplate="10,20,30,40,50"
+
+                         >
+                <p:column style="width: 70px">
+                    <f:facet name="header">
+                        <h:outputText value="Cedula"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cedula}"/>
+                </p:column>
+                <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="Paciente"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fullname}"/>
+                </p:column>
+
+                <p:column >
+                    <f:facet name="header">
+                        <h:outputText value="Direccion"/>
+                    </f:facet>
+                    <h:outputText value="#{item.direccion}"/>
+                </p:column>
+
+                <p:column style="width: 70px">
+                    <f:facet name="header">
+                        <h:outputText value="Nacimiento"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fecha}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <p:column style="width: 70px">
+                    <f:facet name="header">
+                        <h:outputText value="Edad"/>
+                    </f:facet>
+                    <h:outputText value="#{item.edad} años">
+                        <!--<f:convertDateTime pattern="dd/MM/yyyy" /> -->
+                    </h:outputText>
+                </p:column>	
+                <p:column  style="width: 50px">
+                    <f:facet name="header">
+                        <h:outputText value="Sexo"/>
+                    </f:facet>
+                    <h:outputText value="#{item.sexo}"/>
+                </p:column>
+                <p:column style="width:70px;text-align: center" exportable="false">
+                    <p:commandButton id="editarButton" 
+                                     icon="ui-icon-folder-open" title="Editar"  
+                                     action="#{beanPacientes.ctPacientes.prepareEditar(item)}"
+                                     ajax="false">
+                    </p:commandButton>
+                </p:column>
+                <p:column style="width:70px;text-align: center" exportable="false">
+                    <p:commandButton id="citaButton" title="Citas"
+                                     actionListener="#{beanPacientes.preparaCita(item)}"
+                                     icon="ui-icon-calendar"  
+                                     update=":TblCitasCreateForm" 
+                                     oncomplete="PF('TblCitasCreateDialog').show()" >
+                        <f:setPropertyActionListener value="#{item}" target="#{beanPacientes.ctPacientes.selPrev}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+        </p:panel>
+
+
+
+        <ui:remove>
+            <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+        </ui:remove>
+
+
+    </h:form>
+
+</ui:composition>

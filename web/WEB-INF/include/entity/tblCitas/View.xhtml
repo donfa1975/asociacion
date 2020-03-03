@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblCitasViewDlg" widgetVar="TblCitasViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTblCitasTitle}" closeOnEscape="true">
+
+            <h:form id="TblCitasViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tblCitasController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTblCitasLabel_idCita}"/>
+                        <h:outputText value="#{tblCitasController.selected.idCita}" title="#{myBundle.ViewTblCitasTitle_idCita}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblCitasLabel_fecha}"/>
+                        <h:outputText value="#{tblCitasController.selected.fecha}" title="#{myBundle.ViewTblCitasTitle_fecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewTblCitasLabel_hora}"/>
+                        <h:outputText value="#{tblCitasController.selected.hora}" title="#{myBundle.ViewTblCitasTitle_hora}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblCitasLabel_fechaReg}"/>
+                        <h:outputText value="#{tblCitasController.selected.fechaReg}" title="#{myBundle.ViewTblCitasTitle_fechaReg}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewTblCitasLabel_idusuario}"/>
+                        <h:outputText value="#{tblCitasController.selected.idusuario}" title="#{myBundle.ViewTblCitasTitle_idusuario}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblCitasLabel_ejecutada}"/>
+                        <p:selectBooleanCheckbox id="ejecutada" value="#{tblCitasController.selected.ejecutada}" title="#{myBundle.EditTblCitasTitle_ejecutada}" />
+
+                        <h:outputText value="#{myBundle.ViewTblCitasLabel_numeroCita}"/>
+                        <h:outputText value="#{tblCitasController.selected.numeroCita}" title="#{myBundle.ViewTblCitasTitle_numeroCita}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblCitasLabel_idAccion}"/>
+                        <h:outputText value="#{tblCitasController.selected.idAccion.idAccion}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblCitasLabel_idPaciente}"/>
+                        <h:outputText value="#{tblCitasController.selected.idPaciente.idPaciente}"/>
+                    </p:panelGrid>
+					<p:commandButton value="#{myBundle.Close}" onclick="PF('TblCitasViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

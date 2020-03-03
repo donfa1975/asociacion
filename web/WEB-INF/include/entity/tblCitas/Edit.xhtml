@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TblCitasEditDlg" widgetVar="TblCitasEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTblCitasTitle}" closeOnEscape="true">
+
+            <h:form id="TblCitasEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tblCitasController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTblCitasLabel_idCita}" for="idCita" />
+                        <h:outputText id="idCita" value="#{tblCitasController.selected.idCita}" />
+
+						<p:outputLabel value="#{myBundle.EditTblCitasLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="MM/dd/yyyy" value="#{tblCitasController.selected.fecha}" title="#{myBundle.EditTblCitasTitle_fecha}"  showOn="button"/>
+
+						<p:outputLabel value="#{myBundle.EditTblCitasLabel_hora}" for="hora" />
+                        <p:inputText id="hora" value="#{tblCitasController.selected.hora}" title="#{myBundle.EditTblCitasTitle_hora}" size="5" maxlength="5"/>
+
+						<p:outputLabel value="#{myBundle.EditTblCitasLabel_fechaReg}" for="fechaReg" />
+                        <p:calendar id="fechaReg" pattern="dd/MM/yyyy" value="#{tblCitasController.selected.fechaReg}" title="#{myBundle.EditTblCitasTitle_fechaReg}" required="true" requiredMessage="#{myBundle.EditTblCitasRequiredMessage_fechaReg}" showOn="button"/>
+
+						<p:outputLabel value="#{myBundle.EditTblCitasLabel_idusuario}" for="idusuario" />
+                        <p:inputText id="idusuario" value="#{tblCitasController.selected.idusuario}" title="#{myBundle.EditTblCitasTitle_idusuario}"/>
+
+						<p:outputLabel value="#{myBundle.EditTblCitasLabel_ejecutada}" for="ejecutada" />
+                        <p:selectBooleanCheckbox id="ejecutada" value="#{tblCitasController.selected.ejecutada}" />
+
+						<p:outputLabel value="#{myBundle.EditTblCitasLabel_numeroCita}" for="numeroCita" />
+                        <p:inputText id="numeroCita" value="#{tblCitasController.selected.numeroCita}" title="#{myBundle.EditTblCitasTitle_numeroCita}" size="20" maxlength="20"/>
+
+						<p:outputLabel value="#{myBundle.EditTblCitasLabel_idAccion}" for="idAccion" />
+                        <p:selectOneMenu id="idAccion" value="#{tblCitasController.selected.idAccion}"  converter="tblAccionesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblAccionesController.items}"
+                                           var="idAccionItem"
+                                           itemValue="#{idAccionItem}"
+                                           itemLabel="#{idAccionItem.idAccion.toString()}"
+										   />
+
+                        </p:selectOneMenu>
+
+						<p:outputLabel value="#{myBundle.EditTblCitasLabel_idPaciente}" for="idPaciente" />
+                        <p:selectOneMenu id="idPaciente" value="#{tblCitasController.selected.idPaciente}"  converter="tblPacientesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblPacientesController.items}"
+                                           var="idPacienteItem"
+                                           itemValue="#{idPacienteItem}"
+                                           itemLabel="#{idPacienteItem.idPaciente.toString()}"
+										   />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tblCitasController.save}" value="#{myBundle.Save}" update="display,:TblCitasListForm:datalist,:TblCitasListForm:TblCitasDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TblCitasEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TblCitasEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

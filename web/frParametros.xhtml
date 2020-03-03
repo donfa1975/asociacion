@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+   <f:view contentType="text/html">
+    <h:head>
+        <title>Parámetros</title>
+       		<link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
+			<h:outputStylesheet library="css" name="login.css" />
+    </h:head>
+    <h:body>
+		<p:dock position="top">
+				<p:menuitem value="Inicio" icon="/resources/images/home.png" url="#"/> 
+				<p:menuitem value="Usuarios" icon="/resources/images/486.png" outcome="/app/tblUsuarios/index"/>
+				 <p:menuitem value="Pacientes" icon="/resources/images/pacientes.png" outcome="/app/tblPacientes/index" />
+				 <p:menuitem value="Matriculas" icon="/resources/images/matricula.png" outcome="/app/tblMatriculas/index"/>
+				 <p:menuitem value="Citas" icon="/resources/images/citas.png" outcome="/app/tblCitas/index"/>
+				 <p:menuitem value="Diagnosticos" icon="/resources/images/diagnostico.png" outcome="app/tblTipoDiagnostico/index"/>
+				 <p:menuitem value="Parametros" icon="/resources/images/parametros.png" url="#"/>
+				 <p:menuitem value="Reportes" icon="/resources/images/Reports.png" url="#"/>
+			</p:dock>
+			
+        <h:form id="form1" style="margin: 10px" >
+		
+		
+				<p:menu style="float: left;margin-left: 20%;width: 20%">
+					<p:menuitem value="Areas" icon="ui-icon-bookmark" action="#{jpParaBean.setMostrar(1)}" update="form1" immediate="true"/>
+					<p:menuitem value="Cantones" icon="ui-icon-bookmark" action="#{jpParaBean.setMostrar(2)}" update="form1" immediate="true"/>
+					<p:menuitem value="Origenes" icon="ui-icon-bookmark" action="#{jpParaBean.setMostrar(3)}" update="form1" immediate="true"/>
+					<p:menuitem value="Zonas" icon="ui-icon-bookmark" action="#{jpParaBean.setMostrar(4)}" update="form1" immediate="true"/>
+					<p:menuitem value="Asiste a" icon="ui-icon-bookmark" action="#{jpParaBean.setMostrar(5)}" update="form1" immediate="true"/>
+				</p:menu>
+		
+			<p:panel  header="Areas" style="float: left; width: 40%" rendered="#{jpParaBean.verArea}" >
+				<p:commandButton value="Nuevo" icon="ui-icon-plusthick" action="#{jpParaBean.agregaDato(1)}" update="form1" 
+								 immediate="true" oncomplete="PF('dgAgregar').show()" />
+					<p:repeat id="rpAreas" var="a1" value="#{jpParaBean.parametros.areas}" >
+								<h:panelGrid columns="2">
+									<p:commandLink styleClass="ui-icon ui-icon-pencil" title="Editar" action="#{jpParaBean.editaArea(a1,1)}" 
+												   update="form1"  style="float:left;margin-right: 10px" immediate="true" 
+												   oncomplete="PF('dgEditar').show()" />
+									<h:outputText value="#{a1.area}"/>
+								</h:panelGrid>
+								<hr/>
+					</p:repeat>
+			</p:panel>
+		
+			<p:panel  header="Cantones" style="float: left; width: 40%" rendered="#{jpParaBean.verCanton}">
+				<p:commandButton value="Nuevo" icon="ui-icon-plusthick" action="#{jpParaBean.agregaDato(2)}" update="form1"
+								 immediate="true" oncomplete="PF('dgAgregar').show()" />
+				<p:repeat id="rpCantoness" var="c1" value="#{jpParaBean.parametros.cantones}" >
+								<h:panelGrid columns="2">
+									<p:commandLink styleClass="ui-icon ui-icon-pencil" title="Editar" action="#{jpParaBean.editaArea(c1,2)}" 
+												   update="form1"  style="float:left;margin-right: 10px" immediate="true" 
+												   oncomplete="PF('dgEditar').show()" />
+									<h:outputText value="#{c1.canton}"/>
+								</h:panelGrid>
+								<hr/>
+					</p:repeat>
+			</p:panel>
+			
+			
+			<p:panel  header="Origenes" style="float: left; width: 40%" rendered="#{jpParaBean.verOrigen}">
+				<p:commandButton value="Nuevo" icon="ui-icon-plusthick" action="#{jpParaBean.agregaDato(3)}" update="form1" 
+								 immediate="true" oncomplete="PF('dgAgregar').show()" />
+				<p:repeat id="rpOrigenes" var="o1" value="#{jpParaBean.parametros.origenes}" >
+								<h:panelGrid columns="2">
+									<p:commandLink styleClass="ui-icon ui-icon-pencil" title="Editar" action="#{jpParaBean.editaArea(o1,3)}" 
+												   update="form1"  style="float:left;margin-right: 10px" immediate="true" 
+												   oncomplete="PF('dgEditar').show()" />
+									<h:outputText value="#{o1.origen}"/>
+								</h:panelGrid>
+								<hr/>
+					</p:repeat>
+			</p:panel>
+			<p:panel  header="Zonas" style="float: left; width: 40%" rendered="#{jpParaBean.verZona}">
+				<p:commandButton value="Nuevo" icon="ui-icon-plusthick" action="#{jpParaBean.agregaDato(4)}" update="form1"
+								 immediate="true" oncomplete="PF('dgAgregar').show()" />
+				<p:repeat id="rpZonas" var="z1" value="#{jpParaBean.parametros.zonas}" >
+								<h:panelGrid columns="2">
+									<p:commandLink styleClass="ui-icon ui-icon-pencil" title="Editar" action="#{jpParaBean.editaArea(z1,4)}" 
+												   update="form1"  style="float:left;margin-right: 10px" immediate="true" 
+												   oncomplete="PF('dgEditar').show()" />
+									<h:outputText value="#{z1.zona}"/>
+								</h:panelGrid>
+								<hr/>
+					</p:repeat>
+			</p:panel>
+			<p:panel  header="Asiste a" style="float: left; width: 40%" rendered="#{jpParaBean.verAsiste}">
+				<p:commandButton value="Nuevo" icon="ui-icon-plusthick" action="#{jpParaBean.agregaDato(5)}" update="form1"
+								 immediate="true" oncomplete="PF('dgAgregar').show()" />
+				<p:repeat id="rpAsiste" var="s1" value="#{jpParaBean.parametros.asiste}" >
+								<h:panelGrid columns="2">
+									<p:commandLink styleClass="ui-icon ui-icon-pencil" title="Editar" action="#{jpParaBean.editaArea(s1,5)}" 
+												   update="form1"  style="float:left;margin-right: 10px" immediate="true" 
+												   oncomplete="PF('dgEditar').show()" />
+									<h:outputText value="#{s1.asiste}"/>
+								</h:panelGrid>
+								<hr/>
+					</p:repeat>
+			</p:panel>
+			<p:dialog header="Editar" id="dgEditar" widgetVar="dgEditar" modal="true" dynamic="true" >
+				<p:panelGrid columns="2">
+					<h:outputText value="#{jpParaBean.mensaje}"/>
+					<p:inputText id="txtArea" value="#{jpParaBean.parametro}"	/>
+					<p:commandButton value="Actualizar" action="#{jpParaBean.updateDato()}" oncomplete="PF('dgEditar').hide()" update="form1" /> 
+				</p:panelGrid>
+			</p:dialog>
+			<p:dialog header="Nuevo" id="dgAgregar" widgetVar="dgAgregar" modal="true" dynamic="true" >
+				<p:panelGrid columns="2">
+					<h:outputText value="#{jpParaBean.mensaje}"/>
+					<p:inputText id="txtPara" value="#{jpParaBean.parametro}"	/>
+					<p:commandButton value="Guardar" action="#{jpParaBean.insertaDato()}" 
+									 oncomplete="PF('dgAgregar').hide()" update="form1" /> 
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
+	
+    </h:body>
+</f:view>
+</html>

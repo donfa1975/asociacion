@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblZonasCreateDlg" widgetVar="TblZonasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTblZonasTitle}" closeOnEscape="true">
+
+            <h:form id="TblZonasCreateForm">
+
+                <h:panelGroup id="display" rendered="#{tblZonasController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+						<p:outputLabel value="#{myBundle.CreateTblZonasLabel_zona}" for="zona" />
+                        <p:inputText id="zona" value="#{tblZonasController.selected.zona}" title="#{myBundle.CreateTblZonasTitle_zona}" size="150" maxlength="150"/>
+
+						<p:outputLabel value="#{myBundle.CreateTblZonasLabel_idcanton}" for="idcanton" />
+                        <p:inputText id="idcanton" value="#{tblZonasController.selected.idcanton}" title="#{myBundle.CreateTblZonasTitle_idcanton}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tblZonasController.saveNew}" value="#{myBundle.Save}" update="display,:TblZonasListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TblZonasCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TblZonasCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

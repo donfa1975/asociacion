@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TblMatriculasEditDlg" widgetVar="TblMatriculasEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTblMatriculasTitle}" closeOnEscape="true">
+
+            <h:form id="TblMatriculasEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tblMatriculasController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTblMatriculasLabel_idMatricula}" for="idMatricula" />
+                        <h:outputText id="idMatricula" value="#{tblMatriculasController.selected.idMatricula}" />
+
+						<p:outputLabel value="#{myBundle.EditTblMatriculasLabel_anio}" for="anio" />
+                        <p:inputText id="anio" value="#{tblMatriculasController.selected.anio}" title="#{myBundle.EditTblMatriculasTitle_anio}" required="true" requiredMessage="#{myBundle.EditTblMatriculasRequiredMessage_anio}"/>
+
+						<p:outputLabel value="#{myBundle.EditTblMatriculasLabel_fechaMat}" for="fechaMat" />
+                        <p:calendar id="fechaMat" pattern="dd/MM/yyyy" value="#{tblMatriculasController.selected.fechaMat}" title="#{myBundle.EditTblMatriculasTitle_fechaMat}" required="true" requiredMessage="#{myBundle.EditTblMatriculasRequiredMessage_fechaMat}" showOn="button"/>
+
+						<p:outputLabel value="#{myBundle.EditTblMatriculasLabel_numero}" for="numero" />
+                        <p:inputText id="numero" value="#{tblMatriculasController.selected.numero}" title="#{myBundle.EditTblMatriculasTitle_numero}"/>
+
+						<p:outputLabel value="#{myBundle.EditTblMatriculasLabel_numMat}" for="numMat" />
+                        <p:inputText id="numMat" value="#{tblMatriculasController.selected.numMat}" title="#{myBundle.EditTblMatriculasTitle_numMat}" size="20" maxlength="20"/>
+
+						<p:outputLabel value="#{myBundle.EditTblMatriculasLabel_idPaciente}" for="idPaciente" />
+                        <p:selectOneMenu id="idPaciente" value="#{tblMatriculasController.selected.idPaciente}" required="true" requiredMessage="#{myBundle.EditTblMatriculasRequiredMessage_idPaciente}" converter="tblPacientesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblPacientesController.items}"
+                                           var="idPacienteItem"
+                                           itemValue="#{idPacienteItem}"
+                                           itemLabel="#{idPacienteItem.idPaciente.toString()}"
+										   />
+
+                        </p:selectOneMenu>
+
+						<p:outputLabel value="#{myBundle.EditTblMatriculasLabel_idusuario}" for="idusuario" />
+                        <p:selectOneMenu id="idusuario" value="#{tblMatriculasController.selected.idusuario}" required="true" requiredMessage="#{myBundle.EditTblMatriculasRequiredMessage_idusuario}" converter="tblUsuariosConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblUsuariosController.items}"
+                                           var="idusuarioItem"
+                                           itemValue="#{idusuarioItem}"
+                                           itemLabel="#{idusuarioItem.idUsuario.toString()}"
+										   />
+
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tblMatriculasController.save}" value="#{myBundle.Save}" update="display,:TblMatriculasListForm:datalist,:TblMatriculasListForm:TblMatriculasDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TblMatriculasEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TblMatriculasEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

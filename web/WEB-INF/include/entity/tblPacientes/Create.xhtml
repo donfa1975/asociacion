@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblPacientesCreateDlg" widgetVar="TblPacientesCreateDialog" modal="true" 
+                  resizable="true" appendTo="@(body)" header="Nuevo Paciente" 
+                  closeOnEscape="true" style="width: 80%">
+
+            <h:form id="TblPacientesCreateForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" columnClasses="column">
+
+			<p:outputLabel value="Cedula" for="cedula" />
+                        <p:inputText id="cedula" value="#{beanPacientes.ctPacientes.nuevo.cedula}"  size="15" maxlength="10"/>
+                        
+                        <p:outputLabel value="Fecha Nacicmiento" />
+                        <p:calendar id="fechaNace" pattern="dd/MM/yyyy" value="#{beanPacientes.ctPacientes.nuevo.fechaNace}"
+                                    title="#{myBundle.CreateTblPacientesTitle_fechaNace}" required="true" 
+                                    requiredMessage="#{myBundle.CreateTblPacientesRequiredMessage_fechaNace}" showOn="button"/>
+
+			<p:outputLabel value="Apellido" />
+                        <p:inputText id="apellido"  style="text-transform: uppercase" 
+                                     value="#{beanPacientes.ctPacientes.nuevo.apellido}" required="true" 
+                                     requiredMessage="Debe ingresar el apellido" size="50" maxlength="100"/>
+
+			<p:outputLabel value="Nombre" />
+                        <p:inputText id="nombre" style="text-transform: uppercase" 
+                                     value="#{beanPacientes.ctPacientes.nuevo.nombre}" 
+                                     required="true" requiredMessage="Debe ingresar el nombre" size="50" maxlength="100"/>
+
+			
+                        <p:outputLabel value="Sexo" />
+                        <p:selectOneRadio id="selsexo" value="#{beanPacientes.ctPacientes.nuevo.sexo}">
+                            <f:selectItem itemLabel="Masculino" itemValue="M" />
+                            <f:selectItem itemLabel="Femenino" itemValue="F" />                  
+                        </p:selectOneRadio>
+                        
+                        <p:outputLabel value="Direccion" />
+                        <p:inputText id="direccion" style="text-transform: uppercase" value="#{beanPacientes.ctPacientes.nuevo.direccion}"  required="true"  size="50" maxlength="250"/>
+
+			<p:outputLabel value="Cedula Representante" />
+                        <p:inputText id="cedRepresentante" value="#{beanPacientes.ctPacientes.nuevo.cedRepresentante}"  size="15" maxlength="10"/>
+
+			<p:outputLabel value="NombreRepresentante" />
+                        <p:inputText id="nombreRepresentante" style="text-transform: uppercase" value="#{beanPacientes.ctPacientes.nuevo.nombreRepresentante}" required="true" requiredMessage="#{myBundle.CreateTblPacientesRequiredMessage_nombreRepresentante}" size="50" maxlength="100"/>
+
+			<p:outputLabel value="Padre" />
+                        <p:inputText id="nombrePadre" style="text-transform: uppercase" value="#{beanPacientes.ctPacientes.nuevo.nombrePadre}"  required="true" requiredMessage="#{myBundle.CreateTblPacientesRequiredMessage_nombrePadre}" size="50" maxlength="100"/>
+
+			<p:outputLabel value="Madre" />
+                        <p:inputText id="nombreMadre" style="text-transform: uppercase" value="#{beanPacientes.ctPacientes.nuevo.nombreMadre}"  required="true" requiredMessage="#{myBundle.CreateTblPacientesRequiredMessage_nombreMadre}" size="50" maxlength="100"/>
+
+			<p:outputLabel value="Telefono" />
+                        <p:inputText id="telefono" value="#{beanPacientes.ctPacientes.nuevo.telefono}"  size="50" maxlength="50"/>
+
+                        <h:outputText value="Telf. madre"/>
+                        <p:inputText id="telMadre" value="#{beanPacientes.ctPacientes.nuevo.telMadre}"  size="20" maxlength="20"/>
+
+                        <h:outputText value="Telf. padre"/>
+                        <p:inputText id="telPadre" value="#{beanPacientes.ctPacientes.nuevo.telPadre}"  size="20" maxlength="20"/>
+                      
+                        <p:outputLabel value="Periodo matricula" />
+                        <p:selectOneMenu id="permat" value="#{beanPacientes.ctPacientes.nuevo.matriculado}">
+                            <f:selectItem itemLabel="Periodo matricula"/>
+                            <f:selectItems value="#{beanPacientes.ctPacientes.listas.periodos}"
+                                           var="mperiodo"
+                                           itemValue="#{mperiodo.periodo}"
+                                           itemLabel="#{mperiodo.periodo}"   />
+                        </p:selectOneMenu>
+                         
+			
+                        
+			<p:outputLabel value="Canton" />
+                        <p:selectOneMenu id="idCanton" value="#{beanPacientes.ctPacientes.pidCanton}"  >
+                            <f:selectItem itemLabel="Seleccione el canton"/>
+                            <f:selectItems value="#{beanPacientes.ctPacientes.listas.cantones}"
+                                           var="idCantonItem"
+                                           itemValue="#{idCantonItem.idcanton}"
+                                           itemLabel="#{idCantonItem.canton}"/>
+                            <p:ajax update="cmbZona"/>
+                        </p:selectOneMenu>
+
+			<p:outputLabel value="Origen" />
+                        <p:selectOneMenu id="idOrigen" value="#{beanPacientes.ctPacientes.pidOrigen}" >
+                            <f:selectItem itemLabel="Seleccione el origen"/>
+                            <f:selectItems value="#{beanPacientes.ctPacientes.listas.origenes}"
+                                           var="idOrigenItem"
+                                           itemValue="#{idOrigenItem.idorigen}"
+                                           itemLabel="#{idOrigenItem.origen}"
+										   />
+                        </p:selectOneMenu>
+                        
+			<p:outputLabel value="Zona" />
+                        <p:selectOneMenu id="cmbZona" value="#{beanPacientes.ctPacientes.pidZona}" >
+                            <f:selectItem itemLabel="Seleccione la zona"/>
+                            <f:selectItems value="#{beanPacientes.ctPacientes.listas.zonas}"
+                                           var="idZonaItem"
+                                           itemValue="#{idZonaItem.idZona}"
+                                           itemLabel="#{idZonaItem.zona}"
+										   />
+                        </p:selectOneMenu>
+                        
+					
+                    </p:panelGrid>
+                    <p:panel>
+                    <p:fieldset id="panelAreas" legend="Area">
+                      
+                        <p:selectManyCheckbox id="idArea" value="#{beanPacientes.ctPacientes.nuevaArea}"
+                                              layout="grid"  columns="3">
+                                 <f:selectItems value="#{beanPacientes.ctPacientes.listas.areas}"
+                                           var="idAreaItem"
+                                           itemValue="#{idAreaItem.idArea}"
+                                           itemLabel="#{idAreaItem.area}"
+			   />
+                        </p:selectManyCheckbox>
+                    </p:fieldset>
+                    </p:panel>
+                    <p:panel>
+                        <p:commandButton actionListener="#{beanPacientes.ctPacientes.guardar()}" ajax="false" value="Guardar" update="display,:TblPacientesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TblPacientesCreateDialog'));">
+                        
+                        </p:commandButton>
+
+                        <p:commandButton value="Cancelar" oncomplete="PF('TblPacientesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    </p:panel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

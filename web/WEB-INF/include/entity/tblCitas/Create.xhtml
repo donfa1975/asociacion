@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblCitasCreateDlg" widgetVar="TblCitasCreateDialog" modal="true" resizable="true" appendTo="@(body)" header="#{myBundle.CreateTblCitasTitle}" closeOnEscape="true">
+
+            <h:form id="TblCitasCreateForm">
+
+                <h:panelGroup id="display" >
+                    <p:panelGrid columns="4" columnClasses="column">
+
+                        <p:outputLabel value="Cedula" />
+                        <p:outputLabel id="cedula" value="#{beanPacientes.ctCitas.cedula}"/>
+
+                        <p:outputLabel value="Paciente" />
+                        <p:outputLabel id="nombreP" value="#{beanPacientes.ctCitas.nombre}"/>
+
+                        <p:outputLabel value="Representante" />
+                        <p:outputLabel id="prepres" value="#{beanPacientes.ctCitas.representante}"/>
+
+                        <p:outputLabel value="Telefono" />
+                        <p:outputLabel id="ptelefo" value="#{beanPacientes.ctCitas.telefono}"/>                  
+
+                        <p:outputLabel value="Madre" />
+                        <p:outputLabel id="pmadre" value="#{beanPacientes.ctCitas.madre}"/>
+
+
+                        <p:outputLabel value="Telefono madre" />
+                        <p:outputLabel id="ptelefoM" value="#{beanPacientes.ctCitas.telefonoMadre}"/>
+
+                        <p:outputLabel value="Padre" />
+                        <p:outputLabel id="pPadre" value="#{beanPacientes.ctCitas.padre}"/>
+
+                        <p:outputLabel value="Telefono Padre" />
+                        <p:outputLabel id="ptelefoP" value="#{beanPacientes.ctCitas.telefonoPadre}"/>
+
+                    </p:panelGrid>
+                    <p:panel>
+                        <p:panelGrid columns="2">
+                            <h:panelGrid columns="2">
+                                <h:outputText value="Fecha de cita:"/> 
+                                <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{beanPacientes.ctCitas.fecha}" 
+                                            timeZone="GMT-5"  >	</p:calendar>
+                                <h:outputText value="Hora:"/>
+                                <p:calendar id="hora" value="#{beanPacientes.ctCitas.hora}" pattern="HH:mm"  title="Hora" 
+                                            timeOnly="true" timeZone="GMT-5"/>
+                                <p:outputLabel value="Doctor:" />
+                                <p:inputText id="pdoctor" value="#{beanPacientes.ctCitas.doctor}"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="3">
+                                <h:outputText value="Terapias"/>
+                                <p:selectOneMenu id="idAccion" value="#{beanPacientes.ctCitas.idterapia}"  >
+                                    <f:selectItem itemLabel="Seleccione.."/>
+                                    <f:selectItems value="#{beanPacientes.ctCitas.terapias}"
+                                                   var="idTeraItem"
+                                                   itemValue="#{idTeraItem.idAccion}"
+                                                   itemLabel="#{idTeraItem.accion}"
+                                                   />
+                                </p:selectOneMenu>
+                                <p:commandButton icon="ui-icon-plus" actionListener="#{beanPacientes.ctCitas.addCitaTerapia()}"
+                                                  ajax="false" >
+                                    
+                                </p:commandButton>
+
+                                <h:outputText value="Consultas"/>
+                                <p:selectOneMenu id="idAccion2" value="#{beanPacientes.ctCitas.idconsulta}"  >
+                                    <f:selectItem itemLabel="Seleccione.."/>
+                                    <f:selectItems value="#{beanPacientes.ctCitas.consultas}"
+                                                   var="idConItem"
+                                                   itemValue="#{idConItem.idAccion}"
+                                                   itemLabel="#{idConItem.accion}"
+                                                   />
+                                </p:selectOneMenu>
+                                <p:commandButton icon="ui-icon-plus" actionListener="#{beanPacientes.ctCitas.addCitaConsulta()}"
+                                                 ajax="false" />  
+
+                            </h:panelGrid>
+                        </p:panelGrid>
+                    </p:panel>
+                    <p:panel>
+                        <p:dataTable value="#{beanPacientes.ctCitas.citas}" var="last" rows="5" paginator="true"
+                                     style="width: 640px">
+                            <p:column style="width: 80px" >
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha"/>
+                                </f:facet>
+                                <h:outputText value="#{last.fecha}"><f:convertDateTime pattern="dd/MM/yyyy" /></h:outputText>
+                            </p:column>
+                            <p:column style="width: 50px" >
+                                <f:facet name="header">
+                                    <h:outputText value="Hora"/>
+                                </f:facet>
+                                <h:outputText value="#{last.hora}"/>
+                            </p:column>
+                            <p:column style="width: 340px" >
+                                <f:facet name="header">
+                                    <h:outputText value="Cita"/>
+                                </f:facet>
+                                <h:outputText value="#{last.idAccion.accion}"/>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">
+                                    <h:outputText value="Doctor"/>
+                                </f:facet>
+                                <h:outputText value="#{last.nombreDr}"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton icon="ui-icon-minus" actionListener="#{beanPacientes.ctCitas.delCita(last)}"
+                                                 ajax="false">
+                                   
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable> 
+                    </p:panel>
+                    <ui:remove>
+                        <p:outputLabel value="#{myBundle.CreateTblCitasLabel_fecha}" for="fecha" />
+                        <p:calendar id="fecha" pattern="dd/MM/yyyy" value="#{nCitasController.fecha}"  title="#{myBundle.CreateTblCitasTitle_fecha}" timeZone="GMT-5"  showOn="button">
+
+                        </p:calendar>
+
+                        <p:outputLabel value="Hora" for="hora" />
+                        <p:calendar id="hora" value="#{nCitasController.hora}" pattern="HH:mm"  title="Hora" timeOnly="true" timeZone="GMT-5"/>
+
+
+                        <p:outputLabel value="Motivo de la cita" for="idAccion" />
+                        <p:selectOneMenu id="idAccion" value="#{nCitasController.accion}"  converter="tblAccionesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblAccionesController.items}"
+                                           var="idAccionItem"
+                                           itemValue="#{idAccionItem}"
+                                           itemLabel="#{idAccionItem.accion}"
+                                           />
+
+                        </p:selectOneMenu>
+
+
+
+                        <p:commandButton  value="#{myBundle.Save}" actionListener="" oncomplete="PF('TblCitasCreateDialog').hide()">
+
+                        </p:commandButton>
+                    </ui:remove>
+                    <p:commandButton value="Cancelar" oncomplete="PF('TblCitasCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TblPacientesEditDlg" widgetVar="TblPacientesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTblPacientesTitle}" closeOnEscape="true">
+
+            <h:form id="TblPacientesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tblPacientesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTblPacientesLabel_idPaciente}" for="idPaciente" />
+                        <h:outputText id="idPaciente" value="#{tblPacientesController.selected.idPaciente}" />
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_cedula}" for="cedula" />
+                        <p:inputText id="cedula" value="#{tblPacientesController.selected.cedula}" title="#{myBundle.EditTblPacientesTitle_cedula}" size="10" maxlength="10"/>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_apellido}" for="apellido" />
+                        <p:inputText id="apellido" value="#{tblPacientesController.selected.apellido}" title="#{myBundle.EditTblPacientesTitle_apellido}" required="true" requiredMessage="#{myBundle.EditTblPacientesRequiredMessage_apellido}" size="100" maxlength="100"/>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{tblPacientesController.selected.nombre}" title="#{myBundle.EditTblPacientesTitle_nombre}" required="true" requiredMessage="#{myBundle.EditTblPacientesRequiredMessage_nombre}" size="100" maxlength="100"/>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_fechaNace}" for="fechaNace" />
+                        <p:calendar id="fechaNace" pattern="dd/MM/yyyy" value="#{tblPacientesController.selected.fechaNace}" title="#{myBundle.EditTblPacientesTitle_fechaNace}" required="true" requiredMessage="#{myBundle.EditTblPacientesRequiredMessage_fechaNace}" showOn="button"/>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_cedRepresentante}" for="cedRepresentante" />
+                        <p:inputText id="cedRepresentante" value="#{tblPacientesController.selected.cedRepresentante}" title="#{myBundle.EditTblPacientesTitle_cedRepresentante}" size="10" maxlength="10"/>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_nombreRepresentante}" for="nombreRepresentante" />
+                        <p:inputText id="nombreRepresentante" value="#{tblPacientesController.selected.nombreRepresentante}" title="#{myBundle.EditTblPacientesTitle_nombreRepresentante}" required="true" requiredMessage="#{myBundle.EditTblPacientesRequiredMessage_nombreRepresentante}" size="100" maxlength="100"/>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_nombrePadre}" for="nombrePadre" />
+                        <p:inputText id="nombrePadre" value="#{tblPacientesController.selected.nombrePadre}" title="#{myBundle.EditTblPacientesTitle_nombrePadre}" required="true" requiredMessage="#{myBundle.EditTblPacientesRequiredMessage_nombrePadre}" size="100" maxlength="100"/>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_nombreMadre}" for="nombreMadre" />
+                        <p:inputText id="nombreMadre" value="#{tblPacientesController.selected.nombreMadre}" title="#{myBundle.EditTblPacientesTitle_nombreMadre}" required="true" requiredMessage="#{myBundle.EditTblPacientesRequiredMessage_nombreMadre}" size="100" maxlength="100"/>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_sexo}" for="sexo" />
+                        <p:inputText id="sexo" value="#{tblPacientesController.selected.sexo}" title="#{myBundle.EditTblPacientesTitle_sexo}" required="true" requiredMessage="#{myBundle.EditTblPacientesRequiredMessage_sexo}" size="1" maxlength="1"/>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{tblPacientesController.selected.direccion}" title="#{myBundle.EditTblPacientesTitle_direccion}" required="true" requiredMessage="#{myBundle.EditTblPacientesRequiredMessage_direccion}" size="250" maxlength="250"/>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{tblPacientesController.selected.telefono}" title="#{myBundle.EditTblPacientesTitle_telefono}" size="50" maxlength="50"/>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_fechaReg}" for="fechaReg" />
+                        <p:calendar id="fechaReg" pattern="dd/MM/yyyy" value="#{tblPacientesController.selected.fechaReg}" title="#{myBundle.EditTblPacientesTitle_fechaReg}"  showOn="button"/>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_idArea}" for="idArea" />
+                        <p:selectOneMenu id="idArea" value="#{tblPacientesController.selected.idArea}"  converter="tblAreasConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblAreasController.items}"
+                                           var="idAreaItem"
+                                           itemValue="#{idAreaItem}"
+                                           itemLabel="#{idAreaItem.area}"
+										   />
+                        </p:selectOneMenu>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_idCanton}" for="idCanton" />
+                        <p:selectOneMenu id="idCanton" value="#{tblPacientesController.selected.idCanton}"  converter="tblCantonesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblCantonesController.items}"
+                                           var="idCantonItem"
+                                           itemValue="#{idCantonItem}"
+                                           itemLabel="#{idCantonItem.canton}"
+										   />
+
+                        </p:selectOneMenu>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_idOrigen}" for="idOrigen" />
+                        <p:selectOneMenu id="idOrigen" value="#{tblPacientesController.selected.idOrigen}"  converter="tblOrigenesConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblOrigenesController.items}"
+                                           var="idOrigenItem"
+                                           itemValue="#{idOrigenItem}"
+                                           itemLabel="#{idOrigenItem.origen}"
+										   />
+
+                        </p:selectOneMenu>
+
+						<p:outputLabel value="#{myBundle.EditTblPacientesLabel_idzona}" for="idzona" />
+                        <p:selectOneMenu id="idzona" value="#{tblPacientesController.selected.idzona}"  converter="tblZonasConverter">
+                            <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{tblZonasController.items}"
+                                           var="idzonaItem"
+                                           itemValue="#{idzonaItem}"
+                                           itemLabel="#{idzonaItem.zona}"
+										   />
+                        </p:selectOneMenu>
+						
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tblPacientesController.save}" value="#{myBundle.Save}" update="display,:TblPacientesListForm:datalist,:TblPacientesListForm:TblPacientesDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TblPacientesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TblPacientesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

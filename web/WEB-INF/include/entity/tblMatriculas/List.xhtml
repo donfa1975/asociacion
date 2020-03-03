@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="TblMatriculasListForm">
+
+		<p:panel header="#{myBundle.ListTblMatriculasTitle}">
+			<p:contextMenu id="TblMatriculasDataTableContextMenu" for="datalist">  
+				<p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('TblMatriculasListForm:createButton').click();" icon="ui-icon-plus"/>
+				<p:menuitem value="#{myBundle.View}" onclick="document.getElementById('TblMatriculasListForm:viewButton').click();" icon="ui-icon-search"/>
+				<p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('TblMatriculasListForm:editButton').click();" icon="ui-icon-pencil"/>
+				<p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('TblMatriculasListForm:deleteButton').click();" icon="ui-icon-trash"/>
+				<p:separator/>
+				<p:menuitem value="#{myBundle.TblMatriculasMenuItem_idPaciente}" icon="ui-icon-search"  actionListener="#{tblMatriculasController.prepareIdPaciente}" update=":TblPacientesViewForm" oncomplete="PF('TblPacientesViewDialog').show()" disabled="#{empty tblMatriculasController.selected.idPaciente}"/>  
+				<p:menuitem value="#{myBundle.TblMatriculasMenuItem_idusuario}" icon="ui-icon-search"  actionListener="#{tblMatriculasController.prepareIdusuario}" update=":TblUsuariosViewForm" oncomplete="PF('TblUsuariosViewDialog').show()" disabled="#{empty tblMatriculasController.selected.idusuario}"/>  
+			</p:contextMenu>
+			<p:dataTable id="datalist"
+						 value="#{tblMatriculasController.items}"
+						 lazy="false"
+						 rowKey="#{item.idMatricula}"
+						 var="item"
+						 paginator="true"
+						 rows="20"
+						 rowsPerPageTemplate="10,20,30,40,50"
+						 selectionMode="single"
+						 selection="#{tblMatriculasController.selected}"
+						 filteredValue="#{tblMatriculasController.filteredItems}">
+				<!--
+						 To enable Lazy Loading, please copy/replace the following lines above,
+						 and be sure to replace the word HASH with the # symbol:
+				
+						 value="HASH{tblMatriculasController.lazyItems}"
+						 lazy="true"
+						 rowKey="HASH{item.idMatricula}"  <<< Remove this line
+				-->
+
+
+				<p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TblMatriculasDataTableContextMenu" listener="#{tblMatriculasController.resetParents}"/>
+				<p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TblMatriculasDataTableContextMenu" listener="#{tblMatriculasController.resetParents}"/>
+				<p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{tblMatriculasController.resetParents}"/>
+				<p:ajax event="rowDblselect" onsuccess="document.getElementById('TblMatriculasListForm:viewButton').click();"/>
+
+				<p:column sortBy="#{item.idMatricula}" filterBy="#{item.idMatricula}">
+					<f:facet name="header">
+						<h:outputText value="#{myBundle.ListTblMatriculasTitle_idMatricula}"/>
+					</f:facet>
+					<h:outputText value="#{item.idMatricula}"/>
+				</p:column>
+
+
+				<p:column sortBy="#{item.anio}" filterBy="#{item.anio}">
+					<f:facet name="header">
+						<h:outputText value="#{myBundle.ListTblMatriculasTitle_anio}"/>
+					</f:facet>
+					<h:outputText value="#{item.anio}"/>
+				</p:column>
+
+
+				<p:column sortBy="#{item.fechaMat}" filterBy="#{item.fechaMat}">
+					<f:facet name="header">
+						<h:outputText value="#{myBundle.ListTblMatriculasTitle_fechaMat}"/>
+					</f:facet>
+					<h:outputText value="#{item.fechaMat}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+
+				<p:column sortBy="#{item.numero}" filterBy="#{item.numero}">
+					<f:facet name="header">
+						<h:outputText value="#{myBundle.ListTblMatriculasTitle_numero}"/>
+					</f:facet>
+					<h:outputText value="#{item.numero}"/>
+				</p:column>
+
+
+				<p:column sortBy="#{item.numMat}" filterBy="#{item.numMat}">
+					<f:facet name="header">
+						<h:outputText value="#{myBundle.ListTblMatriculasTitle_numMat}"/>
+					</f:facet>
+					<h:outputText value="#{item.numMat}"/>
+				</p:column>
+
+
+				<p:column sortBy="#{item.idPaciente.idPaciente}" filterBy="#{item.idPaciente.idPaciente}">
+					<f:facet name="header">
+						<h:outputText value="#{myBundle.ListTblMatriculasTitle_idPaciente}"/>
+					</f:facet>
+					<h:outputText value="#{item.idPaciente.apellido}"/>
+				</p:column>
+
+				<ui:remove>
+                    <p:column sortBy="#{item.idusuario.idUsuario}" filterBy="#{item.idusuario.idUsuario}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListTblMatriculasTitle_idusuario}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idusuario.idUsuario}"/>
+                    </p:column>
+				</ui:remove>
+
+			</p:dataTable>
+
+			<p:commandButton id="createButton" icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{tblMatriculasController.prepareCreate}" update=":TblMatriculasCreateForm" oncomplete="PF('TblMatriculasCreateDialog').show()"/>
+			<p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":TblMatriculasViewForm" oncomplete="PF('TblMatriculasViewDialog').show()" disabled="#{empty tblMatriculasController.selected}"/>
+			<p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TblMatriculasEditForm" oncomplete="PF('TblMatriculasEditDialog').show()" disabled="#{empty tblMatriculasController.selected}"/>
+			<p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{tblMatriculasController.delete}" update=":growl,datalist" disabled="#{empty tblMatriculasController.selected}">
+				<p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+			</p:commandButton>
+
+		</p:panel>
+		<ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+	</h:form>
+
+</ui:composition>

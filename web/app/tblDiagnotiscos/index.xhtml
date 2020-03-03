@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				template="/WEB-INF/include/template.xhtml">
+
+	<ui:define name="title">
+		<h:outputText value="#{myBundle.TblDiagnotiscosTitle}"/>
+	</ui:define>
+
+	<ui:define name="body">
+
+		<ui:include src="/WEB-INF/include/entity/tblDiagnotiscos/List.xhtml"/>
+		<ui:include src="/WEB-INF/include/entity/tblDiagnotiscos/View.xhtml"/>
+		<ui:include src="/WEB-INF/include/entity/tblDiagnotiscos/Edit.xhtml"/>
+		<ui:include src="/WEB-INF/include/entity/tblDiagnotiscos/Create.xhtml"/>
+		<ui:include src="/WEB-INF/include/entity/tblTipoDiagnostico/View.xhtml"/>
+		<ui:include src="/WEB-INF/include/entity/tblUsuarios/View.xhtml"/>
+		<ui:include src="/WEB-INF/include/entity/tblPacientes/View.xhtml"/>
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblZonasViewDlg" widgetVar="TblZonasViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTblZonasTitle}" closeOnEscape="true">
+
+            <h:form id="TblZonasViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tblZonasController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTblZonasLabel_idZona}"/>
+                        <h:outputText value="#{tblZonasController.selected.idZona}" title="#{myBundle.ViewTblZonasTitle_idZona}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblZonasLabel_zona}"/>
+                        <h:outputText value="#{tblZonasController.selected.zona}" title="#{myBundle.ViewTblZonasTitle_zona}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblZonasLabel_idcanton}"/>
+                        <h:outputText value="#{tblZonasController.selected.idcanton}" title="#{myBundle.ViewTblZonasTitle_idcanton}"/>
+                    </p:panelGrid>
+					<p:commandButton value="#{myBundle.Close}" onclick="PF('TblZonasViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

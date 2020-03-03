@@ -1,0 +1,135 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20-mar-2019, 8:44:35
+    Author     : fabricio.diaz
+*/
+
+
+body{
+	background: #ffffff;
+	background-color: #ffffff;
+	font-size: 12px;
+}
+
+#datosDIV{
+	clear: both;
+	font-weight: bold;
+	color: #022770;
+	
+}
+#head{
+	
+	float: left;
+	width: 350px;
+	
+}
+#menu{
+	
+    float: left;
+	margin-left: 10px;
+}
+
+#layout
+{
+	background: #fcf8f7;
+	width: 80%;
+	height: 90%;
+	margin-left: 10%;
+	margin-right: 10%;
+	box-shadow: 5px 5px gray;
+	padding-left: 10px;
+	padding-right: 5px;
+	padding-top: 5px;
+	border: black 2px groove;
+}
+
+#opciones{
+	float: left;
+	margin-right: 10px;
+}
+#content{
+	width: 100%;
+	font-size: 11px;
+	float: left;
+	clear: both;
+}
+#footer{
+	clear: both;
+	margin: 0;
+}
+.boton{
+	width: 70px;
+	height: 70px;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.claseCaja{
+	background: #FFFFFF;
+	font-size: 11px;
+	box-shadow: 5px 5px gray;
+	width: 80%;
+	margin-top: 5%;
+	margin-left: auto;
+	margin-right: auto;
+	border: black 2px groove;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+}
+
+.claseErrorGeneral{
+	color: #f03b04;
+}
+.claseGenerica{
+	font-size: 10px;
+	
+}
+.panel3
+{
+	background: #ff3333;
+	color: #FFFFFF;
+}
+.panel4
+{
+	background: #ffcc66;
+	
+}
+
+.panel5
+{
+	background: #99ccff;
+	
+}
+.panel6
+{
+	background: #99ff99;
+}
+.panel1
+{
+	width: 90%;
+	font-size: 10px;
+}
+.panel2
+{
+	width: 90%;
+	font-size: 10px;
+}
+outputLabel
+{
+	font-weight: bold;
+}
+.resalte2
+{
+	font-weight: bold;
+	font-style: italic;
+}
+.titulo
+{
+	font-weight: bold;
+	font-size: 18px;
+}

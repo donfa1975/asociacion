@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="TblDiagnotiscosListForm">
+
+		<p:panel header="#{myBundle.ListTblDiagnotiscosTitle}">
+			<p:contextMenu id="TblDiagnotiscosDataTableContextMenu" for="datalist">  
+				<p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('TblDiagnotiscosListForm:createButton').click();" icon="ui-icon-plus"/>
+				<p:menuitem value="#{myBundle.View}" onclick="document.getElementById('TblDiagnotiscosListForm:viewButton').click();" icon="ui-icon-search"/>
+				<p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('TblDiagnotiscosListForm:editButton').click();" icon="ui-icon-pencil"/>
+				<p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('TblDiagnotiscosListForm:deleteButton').click();" icon="ui-icon-trash"/>
+				<p:separator/>
+				<p:menuitem value="#{myBundle.TblDiagnotiscosMenuItem_idPaciente}" icon="ui-icon-search"  actionListener="#{tblDiagnotiscosController.prepareIdPaciente}" update=":TblPacientesViewForm" oncomplete="PF('TblPacientesViewDialog').show()" disabled="#{empty tblDiagnotiscosController.selected.idPaciente}"/>  
+				<p:menuitem value="#{myBundle.TblDiagnotiscosMenuItem_idTipoDiagnostico}" icon="ui-icon-search"  actionListener="#{tblDiagnotiscosController.prepareIdTipoDiagnostico}" update=":TblTipoDiagnosticoViewForm" oncomplete="PF('TblTipoDiagnosticoViewDialog').show()" disabled="#{empty tblDiagnotiscosController.selected.idTipoDiagnostico}"/>  
+				<p:menuitem value="#{myBundle.TblDiagnotiscosMenuItem_idusuario}" icon="ui-icon-search"  actionListener="#{tblDiagnotiscosController.prepareIdusuario}" update=":TblUsuariosViewForm" oncomplete="PF('TblUsuariosViewDialog').show()" disabled="#{empty tblDiagnotiscosController.selected.idusuario}"/>  
+			</p:contextMenu>
+			<p:dataTable id="datalist"
+						 value="#{tblDiagnotiscosController.items}"
+						 lazy="false"
+						 rowKey="#{item.idDiagnostico}"
+						 var="item"
+						 paginator="true"
+						 rows="20"
+						 rowsPerPageTemplate="10,20,30,40,50"
+						 selectionMode="single"
+						 selection="#{tblDiagnotiscosController.selected}"
+						 filteredValue="#{tblDiagnotiscosController.filteredItems}">
+				<!--
+						 To enable Lazy Loading, please copy/replace the following lines above,
+						 and be sure to replace the word HASH with the # symbol:
+				
+						 value="HASH{tblDiagnotiscosController.lazyItems}"
+						 lazy="true"
+						 rowKey="HASH{item.idDiagnostico}"  <<< Remove this line
+				-->
+
+
+				<p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TblDiagnotiscosDataTableContextMenu" listener="#{tblDiagnotiscosController.resetParents}"/>
+				<p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TblDiagnotiscosDataTableContextMenu" listener="#{tblDiagnotiscosController.resetParents}"/>
+				<p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{tblDiagnotiscosController.resetParents}"/>
+				<p:ajax event="rowDblselect" onsuccess="document.getElementById('TblDiagnotiscosListForm:viewButton').click();"/>
+
+				<p:column sortBy="#{item.idDiagnostico}" filterBy="#{item.idDiagnostico}">
+					<f:facet name="header">
+						<h:outputText value="#{myBundle.ListTblDiagnotiscosTitle_idDiagnostico}"/>
+					</f:facet>
+					<h:outputText value="#{item.idDiagnostico}"/>
+				</p:column>
+
+
+				<p:column sortBy="#{item.fechaDiagnostico}" filterBy="#{item.fechaDiagnostico}">
+					<f:facet name="header">
+						<h:outputText value="#{myBundle.ListTblDiagnotiscosTitle_fechaDiagnostico}"/>
+					</f:facet>
+					<h:outputText value="#{item.fechaDiagnostico}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+
+
+				<p:column sortBy="#{item.idmedico}" filterBy="#{item.idmedico}">
+					<f:facet name="header">
+						<h:outputText value="#{myBundle.ListTblDiagnotiscosTitle_idmedico}"/>
+					</f:facet>
+					<h:outputText value="#{item.idmedico}"/>
+				</p:column>
+
+
+				<p:column sortBy="#{item.idPaciente.idPaciente}" filterBy="#{item.idPaciente.idPaciente}">
+					<f:facet name="header">
+						<h:outputText value="#{myBundle.ListTblDiagnotiscosTitle_idPaciente}"/>
+					</f:facet>
+					<h:outputText value="#{item.idPaciente.idPaciente}"/>
+				</p:column>
+
+
+				<p:column sortBy="#{item.idTipoDiagnostico.idTipoDiagnostico}" filterBy="#{item.idTipoDiagnostico.idTipoDiagnostico}">
+					<f:facet name="header">
+						<h:outputText value="#{myBundle.ListTblDiagnotiscosTitle_idTipoDiagnostico}"/>
+					</f:facet>
+					<h:outputText value="#{item.idTipoDiagnostico.diagnostico}"/>
+				</p:column>
+
+
+				<p:column sortBy="#{item.idusuario.idUsuario}" filterBy="#{item.idusuario.idUsuario}">
+					<f:facet name="header">
+						<h:outputText value="#{myBundle.ListTblDiagnotiscosTitle_idusuario}"/>
+					</f:facet>
+					<h:outputText value="#{item.idusuario.idUsuario}"/>
+				</p:column>
+
+
+			</p:dataTable>
+
+			<p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{tblDiagnotiscosController.prepareCreate}" update=":TblDiagnotiscosCreateForm" oncomplete="PF('TblDiagnotiscosCreateDialog').show()"/>
+			<p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":TblDiagnotiscosViewForm" oncomplete="PF('TblDiagnotiscosViewDialog').show()" disabled="#{empty tblDiagnotiscosController.selected}"/>
+			<p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TblDiagnotiscosEditForm" oncomplete="PF('TblDiagnotiscosEditDialog').show()" disabled="#{empty tblDiagnotiscosController.selected}"/>
+			<p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{tblDiagnotiscosController.delete}" update=":growl,datalist" disabled="#{empty tblDiagnotiscosController.selected}">
+				<p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+			</p:commandButton>
+
+		</p:panel>
+		<ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+	</h:form>
+
+</ui:composition>

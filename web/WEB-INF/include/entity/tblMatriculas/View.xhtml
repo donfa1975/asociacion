@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblMatriculasViewDlg" widgetVar="TblMatriculasViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTblMatriculasTitle}" closeOnEscape="true">
+
+            <h:form id="TblMatriculasViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tblMatriculasController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTblMatriculasLabel_idMatricula}"/>
+                        <h:outputText value="#{tblMatriculasController.selected.idMatricula}" title="#{myBundle.ViewTblMatriculasTitle_idMatricula}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblMatriculasLabel_anio}"/>
+                        <h:outputText value="#{tblMatriculasController.selected.anio}" title="#{myBundle.ViewTblMatriculasTitle_anio}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblMatriculasLabel_fechaMat}"/>
+                        <h:outputText value="#{tblMatriculasController.selected.fechaMat}" title="#{myBundle.ViewTblMatriculasTitle_fechaMat}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewTblMatriculasLabel_numero}"/>
+                        <h:outputText value="#{tblMatriculasController.selected.numero}" title="#{myBundle.ViewTblMatriculasTitle_numero}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblMatriculasLabel_numMat}"/>
+                        <h:outputText value="#{tblMatriculasController.selected.numMat}" title="#{myBundle.ViewTblMatriculasTitle_numMat}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblMatriculasLabel_idPaciente}"/>
+                        <h:outputText value="#{tblMatriculasController.selected.idPaciente.idPaciente}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblMatriculasLabel_idusuario}"/>
+                        <h:outputText value="#{tblMatriculasController.selected.idusuario.idUsuario}"/>
+                    </p:panelGrid>
+					<p:commandButton value="#{myBundle.Close}" onclick="PF('TblMatriculasViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

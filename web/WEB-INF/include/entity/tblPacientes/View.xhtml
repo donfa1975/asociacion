@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblPacientesViewDlg"  widgetVar="TblPacientesViewDialog" modal="true" resizable="true"  appendTo="@(body)" header="Datos del Paciente" closeOnEscape="true">
+
+            <h:form id="TblPacientesViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" >
+
+                        <h:outputText value="ID"/>
+                        <h:outputText value="#{beanPacientes.ctPacientes.seleccionado.idPaciente}"/>
+                    
+                        <h:outputText value="Cedula"/>
+                        <p:inputText value="#{beanPacientes.ctPacientes.seleccionado.cedula}"/>
+                    
+                        <h:outputText value="Nombres"/>
+                        <p:inputText value="#{beanPacientes.ctPacientes.seleccionado.nombre}" size="50"/>
+                        
+                        <h:outputText value="Apellidos"/>
+                        <p:inputText value="#{beanPacientes.ctPacientes.seleccionado.apellido}" size="50"/>
+
+                        
+                        <h:outputText value="Fecha nac:"/>
+                        <p:calendar id="fechaNace" pattern="dd/MM/yyyy" value="#{beanPacientes.ctPacientes.seleccionado.fechaNace}"
+                                    required="true" 
+                                     showOn="button"/>
+                        
+                        <h:outputText value="Edad(años)"/>
+                        <h:outputText value="#{beanPacientes.ctPacientes.seleccionado.edad}"/>
+                           
+                        <h:outputText value="Sexo"/>
+                        <p:inputText value="#{beanPacientes.ctPacientes.seleccionado.sexo}"/>
+
+                        <h:outputText value="Direccion"/>
+                        <p:inputText value="#{beanPacientes.ctPacientes.seleccionado.direccion}" size="50"
+                                     maxlength="250" />
+
+
+                        <h:outputText value="Cedula Repre."/>
+                        <p:inputText value="#{beanPacientes.ctPacientes.seleccionado.cedRepresentante}"
+                                     maxlength="10"/>
+
+                        <h:outputText value="Representante"/>
+                        <p:inputText value="#{beanPacientes.ctPacientes.seleccionado.nombreRepresentante}"
+                                     maxlength="100" size="50"/>
+
+                        <h:outputText value="Padre"/>
+                        <p:inputText value="#{beanPacientes.ctPacientes.seleccionado.nombrePadre}"
+                                     maxlength="100" size="50"/>
+
+                        <h:outputText value="Madre"/>
+                        <p:inputText value="#{beanPacientes.ctPacientes.seleccionado.nombreMadre}"
+                                     maxlength="100" size="50"/>
+
+                        <h:outputText value="Telefono"/>
+                        <p:inputText value="#{beanPacientes.ctPacientes.seleccionado.telefono}"
+                                     maxlength="50" />
+
+			<h:outputText value="Telf. madre"/>
+                        <p:inputText value="#{beanPacientes.ctPacientes.seleccionado.telMadre}"
+                                     maxlength="20" />
+
+                        <h:outputText value="Telf. padre"/>
+                        <p:inputText value="#{beanPacientes.ctPacientes.seleccionado.telPadre}"
+                                     maxlength="20" />
+                        
+                        <h:outputText value="Cantón"/>
+                        <h:outputText value="#{beanPacientes.ctPacientes.seleccionado.idCanton.canton}"/>
+						
+			<h:outputText value="Origen"/>
+                        <h:outputText value="#{beanPacientes.ctPacientes.seleccionado.idOrigen.origen}"/>
+						 
+			<h:outputText value="Zona"/>
+                        <h:outputText value="#{beanPacientes.ctPacientes.seleccionado.idzona.zona}"/>
+			
+                        <h:outputText value="Matriculado"/>
+                       <p:selectOneMenu id="permat" value="#{beanPacientes.ctPacientes.seleccionado.matriculado}">
+                            <f:selectItem itemLabel="Periodo matricula"/>
+                            <f:selectItems value="#{beanPacientes.ctPacientes.listas.periodos}"
+                                           var="mperiodo"
+                                           itemValue="#{mperiodo.periodo}"
+                                           itemLabel="#{mperiodo.periodo}"   />
+                        </p:selectOneMenu>			
+			
+                    </p:panelGrid>
+                    <p:tabView style="width: 70%">
+                        <p:tab title="Diagnósticos">
+                            <p:dataTable value="#{beanPacientes.ctPacientes.seleccionado.tblDiagnotiscosCollection}"
+                                         var="mdi" style="width: 80%" resizableColumns="true">
+                                <p:column headerText="Codigo" width="20%">
+                                    <h:outputText value="#{mdi.idTipoDiagnostico.codigo}"/>
+                                </p:column>
+                                <p:column headerText="Diagnostico" width="70%">
+                                    <h:outputText value="#{mdi.idTipoDiagnostico.diagnostico}"/>
+                                </p:column>
+                                <p:column width="10%">
+                                    <p:commandButton icon="ui-icon-minus"/>
+                                </p:column>
+                            </p:dataTable>
+                            <ui:remove>
+                            <p:dataList value="#{beanPacientes.ctPacientes.seleccionado.tblDiagnotiscosCollection}" var="d1">
+                                <h:outputText value="#{d1.idTipoDiagnostico.codigo}, #{d1.idTipoDiagnostico.diagnostico}"/>
+                            </p:dataList>
+                            </ui:remove>
+                        </p:tab>
+                        <p:tab title="Areas">
+                             <p:selectManyCheckbox id="idArea" value="#{beanPacientes.ctPacientes.nuevaArea}"
+                                              layout="grid"  columns="3">
+                                 <f:selectItems value="#{beanPacientes.ctPacientes.listas.areas}"
+                                           var="idAreaItem"
+                                           itemValue="#{idAreaItem.idArea}"
+                                           itemLabel="#{idAreaItem.area}"
+			   />
+                        </p:selectManyCheckbox>
+                        </p:tab>
+                        <p:tab title="citas">
+                            
+                        </p:tab>
+                    </p:tabView>
+		
+                
+                
+                </h:panelGroup>
+				
+            </h:form>
+            <h:form id="controles">
+                 <p:commandButton value="Cerrar" onclick="PF('TblPacientesViewDialog').hide()"/>
+                 <span class="ui-separator"/>
+                 <p:commandButton value="Guardar" />
+                 <span class="ui-separator"/>
+                <p:commandButton value="Imprimir"  icon="ui-icon-print" >
+                    <p:printer target="TblPacientesViewForm" />
+                </p:commandButton>
+                 
+                 
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

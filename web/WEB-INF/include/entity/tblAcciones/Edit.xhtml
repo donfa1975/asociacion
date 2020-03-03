@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TblAccionesEditDlg" widgetVar="TblAccionesEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTblAccionesTitle}" closeOnEscape="true">
+
+            <h:form id="TblAccionesEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tblAccionesController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTblAccionesLabel_idAccion}" for="idAccion" />
+                        <h:outputText id="idAccion" value="#{tblAccionesController.selected.idAccion}" />
+
+						<p:outputLabel value="#{myBundle.EditTblAccionesLabel_accion}" for="accion" />
+                        <p:inputTextarea rows="4" cols="30" id="accion" value="#{tblAccionesController.selected.accion}" title="#{myBundle.EditTblAccionesTitle_accion}" />
+
+						<p:outputLabel value="#{myBundle.EditTblAccionesLabel_tipo}" for="tipo" />
+                        <p:inputText id="tipo" value="#{tblAccionesController.selected.tipo}" title="#{myBundle.EditTblAccionesTitle_tipo}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tblAccionesController.save}" value="#{myBundle.Save}" update="display,:TblAccionesListForm:datalist,:TblAccionesListForm:TblAccionesDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TblAccionesEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TblAccionesEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

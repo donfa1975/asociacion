@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+   <f:view contentType="text/html">
+    <h:head>
+        <title>Asociacion Nuestra Familia</title>
+		<link href="resources/css/estilo.css" rel="stylesheet" type="text/css"/>
+    </h:head>
+	    <h:body>
+			<p:dock position="top">
+				<p:menuitem value="Inicio" icon="/resources/images/home.png" outcome="/index"/> 
+                               
+                            	<p:menuitem value="Pacientes" icon="/resources/images/pacientes.png" outcome="/app/tblPacientes/index.xhtml" />
+ 
+				 <p:menuitem value="Parametros" icon="/resources/images/parametros.png" outcome="frParametros"/>
+				 <p:menuitem value="Reportes" icon="/resources/images/Reports.png" url="#"/>
+			</p:dock>
+			<h:form class="claseCaja">
+				
+			<!--	<p:dataGrid var="c1" value="#{jp2bean.tablero.datos}" >
+					<f:facet name="header">
+						Contadores
+					</f:facet>
+					<p:panel header="#{c1.titulo}" style="text-align: center">
+						<h:outputText value="#{c1.cuenta}"/>
+					</p:panel>
+				</p:dataGrid>-->
+			</h:form>
+		</h:body>
+</f:view>
+
+</html>
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblDiagnotiscosViewDlg" widgetVar="TblDiagnotiscosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTblDiagnotiscosTitle}" closeOnEscape="true">
+
+            <h:form id="TblDiagnotiscosViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tblDiagnotiscosController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTblDiagnotiscosLabel_idDiagnostico}"/>
+                        <h:outputText value="#{tblDiagnotiscosController.selected.idDiagnostico}" title="#{myBundle.ViewTblDiagnotiscosTitle_idDiagnostico}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblDiagnotiscosLabel_fechaDiagnostico}"/>
+                        <h:outputText value="#{tblDiagnotiscosController.selected.fechaDiagnostico}" title="#{myBundle.ViewTblDiagnotiscosTitle_fechaDiagnostico}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewTblDiagnotiscosLabel_idmedico}"/>
+                        <h:outputText value="#{tblDiagnotiscosController.selected.idmedico}" title="#{myBundle.ViewTblDiagnotiscosTitle_idmedico}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblDiagnotiscosLabel_idPaciente}"/>
+                        <h:outputText value="#{tblDiagnotiscosController.selected.idPaciente.idPaciente}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblDiagnotiscosLabel_idTipoDiagnostico}"/>
+                        <h:outputText value="#{tblDiagnotiscosController.selected.idTipoDiagnostico.idTipoDiagnostico}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblDiagnotiscosLabel_idusuario}"/>
+                        <h:outputText value="#{tblDiagnotiscosController.selected.idusuario.idUsuario}"/>
+                    </p:panelGrid>
+					<p:commandButton value="#{myBundle.Close}" onclick="PF('TblDiagnotiscosViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

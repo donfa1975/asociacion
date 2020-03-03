@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TblTipoDiagnosticoEditDlg" widgetVar="TblTipoDiagnosticoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTblTipoDiagnosticoTitle}" closeOnEscape="true">
+
+            <h:form id="TblTipoDiagnosticoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tblTipoDiagnosticoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTblTipoDiagnosticoLabel_idTipoDiagnostico}" for="idTipoDiagnostico" />
+                        <h:outputText id="idTipoDiagnostico" value="#{tblTipoDiagnosticoController.selected.idTipoDiagnostico}" />
+
+						<p:outputLabel value="#{myBundle.EditTblTipoDiagnosticoLabel_codigo}" for="codigo" />
+                        <p:inputText id="codigo" value="#{tblTipoDiagnosticoController.selected.codigo}" title="#{myBundle.EditTblTipoDiagnosticoTitle_codigo}" size="10" maxlength="10"/>
+
+						<p:outputLabel value="#{myBundle.EditTblTipoDiagnosticoLabel_diagnostico}" for="diagnostico" />
+                        <p:inputTextarea rows="4" cols="30" id="diagnostico" value="#{tblTipoDiagnosticoController.selected.diagnostico}" title="#{myBundle.EditTblTipoDiagnosticoTitle_diagnostico}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tblTipoDiagnosticoController.save}" value="#{myBundle.Save}" update="display,:TblTipoDiagnosticoListForm:datalist,:TblTipoDiagnosticoListForm:TblTipoDiagnosticoDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TblTipoDiagnosticoEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TblTipoDiagnosticoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TblTipoDiagnosticoViewDlg" widgetVar="TblTipoDiagnosticoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTblTipoDiagnosticoTitle}" closeOnEscape="true">
+
+            <h:form id="TblTipoDiagnosticoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tblTipoDiagnosticoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTblTipoDiagnosticoLabel_idTipoDiagnostico}"/>
+                        <h:outputText value="#{tblTipoDiagnosticoController.selected.idTipoDiagnostico}" title="#{myBundle.ViewTblTipoDiagnosticoTitle_idTipoDiagnostico}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblTipoDiagnosticoLabel_codigo}"/>
+                        <h:outputText value="#{tblTipoDiagnosticoController.selected.codigo}" title="#{myBundle.ViewTblTipoDiagnosticoTitle_codigo}"/>
+
+                        <h:outputText value="#{myBundle.ViewTblTipoDiagnosticoLabel_diagnostico}"/>
+                        <h:outputText value="#{tblTipoDiagnosticoController.selected.diagnostico}" title="#{myBundle.ViewTblTipoDiagnosticoTitle_diagnostico}"/>
+                    </p:panelGrid>
+					<p:commandButton value="#{myBundle.Close}" onclick="PF('TblTipoDiagnosticoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
