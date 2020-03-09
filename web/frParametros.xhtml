@@ -14,31 +14,23 @@
     </h:head>
     <h:body>
 		<p:dock position="top">
-				<p:menuitem value="Inicio" icon="/resources/images/home.png" url="#"/> 
-				<p:menuitem value="Usuarios" icon="/resources/images/486.png" outcome="/app/tblUsuarios/index"/>
-				 <p:menuitem value="Pacientes" icon="/resources/images/pacientes.png" outcome="/app/tblPacientes/index" />
-				 <p:menuitem value="Matriculas" icon="/resources/images/matricula.png" outcome="/app/tblMatriculas/index"/>
-				 <p:menuitem value="Citas" icon="/resources/images/citas.png" outcome="/app/tblCitas/index"/>
-				 <p:menuitem value="Diagnosticos" icon="/resources/images/diagnostico.png" outcome="app/tblTipoDiagnostico/index"/>
-				 <p:menuitem value="Parametros" icon="/resources/images/parametros.png" url="#"/>
+			<p:menuitem value="Inicio" icon="/resources/images/home.png" outcome="/index"/> 
+                               
+                            	<p:menuitem value="Pacientes" icon="/resources/images/pacientes.png" outcome="/app/tblPacientes/index.xhtml" />
+ 
+				 <p:menuitem value="Parametros" icon="/resources/images/parametros.png" outcome="frParametros"/>
 				 <p:menuitem value="Reportes" icon="/resources/images/Reports.png" url="#"/>
 			</p:dock>
 			
         <h:form id="form1" style="margin: 10px" >
 		
 		
-				<p:menu style="float: left;margin-left: 20%;width: 20%">
-					<p:menuitem value="Areas" icon="ui-icon-bookmark" action="#{jpParaBean.setMostrar(1)}" update="form1" immediate="true"/>
-					<p:menuitem value="Cantones" icon="ui-icon-bookmark" action="#{jpParaBean.setMostrar(2)}" update="form1" immediate="true"/>
-					<p:menuitem value="Origenes" icon="ui-icon-bookmark" action="#{jpParaBean.setMostrar(3)}" update="form1" immediate="true"/>
-					<p:menuitem value="Zonas" icon="ui-icon-bookmark" action="#{jpParaBean.setMostrar(4)}" update="form1" immediate="true"/>
-					<p:menuitem value="Asiste a" icon="ui-icon-bookmark" action="#{jpParaBean.setMostrar(5)}" update="form1" immediate="true"/>
-				</p:menu>
+				
 		
-			<p:panel  header="Areas" style="float: left; width: 40%" rendered="#{jpParaBean.verArea}" >
+			<p:panel  header="Areas" style="float: left; width: 40%"  >
 				<p:commandButton value="Nuevo" icon="ui-icon-plusthick" action="#{jpParaBean.agregaDato(1)}" update="form1" 
 								 immediate="true" oncomplete="PF('dgAgregar').show()" />
-					<p:repeat id="rpAreas" var="a1" value="#{jpParaBean.parametros.areas}" >
+                                <p:repeat id="rpAreas" var="a1" value="#{parametrosBeans}" >
 								<h:panelGrid columns="2">
 									<p:commandLink styleClass="ui-icon ui-icon-pencil" title="Editar" action="#{jpParaBean.editaArea(a1,1)}" 
 												   update="form1"  style="float:left;margin-right: 10px" immediate="true" 
@@ -90,19 +82,7 @@
 								<hr/>
 					</p:repeat>
 			</p:panel>
-			<p:panel  header="Asiste a" style="float: left; width: 40%" rendered="#{jpParaBean.verAsiste}">
-				<p:commandButton value="Nuevo" icon="ui-icon-plusthick" action="#{jpParaBean.agregaDato(5)}" update="form1"
-								 immediate="true" oncomplete="PF('dgAgregar').show()" />
-				<p:repeat id="rpAsiste" var="s1" value="#{jpParaBean.parametros.asiste}" >
-								<h:panelGrid columns="2">
-									<p:commandLink styleClass="ui-icon ui-icon-pencil" title="Editar" action="#{jpParaBean.editaArea(s1,5)}" 
-												   update="form1"  style="float:left;margin-right: 10px" immediate="true" 
-												   oncomplete="PF('dgEditar').show()" />
-									<h:outputText value="#{s1.asiste}"/>
-								</h:panelGrid>
-								<hr/>
-					</p:repeat>
-			</p:panel>
+			
 			<p:dialog header="Editar" id="dgEditar" widgetVar="dgEditar" modal="true" dynamic="true" >
 				<p:panelGrid columns="2">
 					<h:outputText value="#{jpParaBean.mensaje}"/>
